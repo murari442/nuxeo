@@ -215,7 +215,7 @@
     <skip.surefire.tests>${skipTests}</skip.surefire.tests>
 
     <!-- for use in maven-surefire-plugin, maven-failsafe-plugin, jacoco-maven-plugin -->
-    <it.failsafe.argLine></it.failsafe.argLine>
+    <it.failsafe.argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</it.failsafe.argLine>
 
     <!-- Sonar & JaCoCo (related profile: sonar)-->
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -5089,7 +5089,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <argLine>-Xmx1g -Dfile.encoding=UTF-8 -XX:-OmitStackTraceInFastThrow -Djdk.net.URLClassPath.disableClassPathURLCheck=true ${it.failsafe.argLine}</argLine>
+          <argLine>-Xmx1g -Dfile.encoding=UTF-8 -XX:-OmitStackTraceInFastThrow ${it.failsafe.argLine}</argLine>
           <skipTests>${skip.surefire.tests}</skipTests>
           <systemPropertyVariables>
             <net.sourceforge.cobertura.datafile>
@@ -6919,7 +6919,7 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
-              <argLine>-Xmx1g -Dfile.encoding=UTF-8 -XX:-OmitStackTraceInFastThrow -Djdk.net.URLClassPath.disableClassPathURLCheck=true @{it.failsafe.argLine}</argLine>
+              <argLine>-Xmx1g -Dfile.encoding=UTF-8 -XX:-OmitStackTraceInFastThrow @{it.failsafe.argLine}</argLine>
             </configuration>
           </plugin>
         </plugins>
