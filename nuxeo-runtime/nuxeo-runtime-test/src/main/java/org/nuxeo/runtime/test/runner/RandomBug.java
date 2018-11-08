@@ -206,7 +206,7 @@ public class RandomBug {
     /**
      * The default mode if {@link #MODE_PROPERTY} is not set.
      */
-    public final Mode DEFAULT = Mode.RELAX;
+    public final Mode DEFAULT = Mode.STRICT;
 
     protected Mode fetchMode() {
         String mode = System.getProperty(MODE_PROPERTY, DEFAULT.name());

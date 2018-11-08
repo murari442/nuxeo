@@ -31,7 +31,10 @@ import static org.nuxeo.ecm.platform.comment.api.Comments.newComment;
 import static org.nuxeo.ecm.platform.comment.workflow.utils.CommentsConstants.COMMENT_DOC_TYPE;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.junit.Test;
@@ -338,7 +341,7 @@ public class TestPropertyCommentManager extends AbstractTestCommentManager {
     }
 
     @Test
-    @RandomBug.Repeat(issue = "NXP-26144")
+    @RandomBug.Repeat(issue = "NXP-26144", onSuccess = 200)
     public void shouldReturnAllCommentsSortedByCreationDateDescendingWhenDocumentHasComments() {
         DocumentModel doc = session.createDocumentModel(FOLDER_COMMENT_CONTAINER, "myFile", "File");
         doc = session.createDocument(doc);
@@ -357,10 +360,10 @@ public class TestPropertyCommentManager extends AbstractTestCommentManager {
         List<Comment> comments = commentManager.getComments(session, doc.getId(), false);
         assertNotNull(comments);
         assertEquals(4, comments.size());
-        assertEquals(comments.get(0), fourthComment);
-        assertEquals(comments.get(1), thirdComment);
-        assertEquals(comments.get(2), secondComment);
-        assertEquals(comments.get(3), firstComment);
+        assertEquals(comments.get(0).getText(), fourthComment.getText());
+        assertEquals(comments.get(1).getText(), thirdComment.getText());
+        assertEquals(comments.get(2).getText(), secondComment.getText());
+        assertEquals(comments.get(3).getText(), firstComment.getText());
     }
 
     @Test
@@ -483,6 +486,8 @@ public class TestPropertyCommentManager extends AbstractTestCommentManager {
         comment.setAuthor(author);
         comment.setText(text);
         comment.setCreationDate(Instant.now());
+        System.out.println("time : "
+                + GregorianCalendar.from(ZonedDateTime.ofInstant(comment.getCreationDate(), ZoneId.systemDefault())));
         return comment;
     }
 }
